@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /
+
+# Mengalihkan semua URL ke /home
+RewriteCond %{REQUEST_URI} !^/home
+RewriteRule ^(.*)$ /home [L,R=301]
