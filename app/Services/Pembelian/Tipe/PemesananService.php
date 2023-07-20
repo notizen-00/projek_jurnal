@@ -15,7 +15,15 @@ class PemesananService implements TipePembelianInterface
         $this->tipe = $tipe;
     }
 
+<<<<<<< HEAD
   
+=======
+    public function getTipe()
+    {
+        return $this->tipe;
+
+    }
+>>>>>>> d745a393 (test merge)
 
 
    
