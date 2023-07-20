@@ -16,7 +16,7 @@ class Account_helper {
     public static function get_tipe_pembelian_name($tipe_pembelian)
     {   
         if($tipe_pembelian == 1){
-            return 'Faktur Pembelian';
+            return 'Faktur Pembelia';
         }
 
 
