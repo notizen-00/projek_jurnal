@@ -10,7 +10,7 @@ class PemesananService implements TipePembelianInterface
     protected $tipe;
 
 
-    public function __construct($tipe = 'pemesanan')
+    public function __construct($tipe = 'Pemesanan Pembelian')
     {
         $this->tipe = $tipe;
     }
@@ -19,6 +19,23 @@ class PemesananService implements TipePembelianInterface
     {
 
         return $this->tipe;
+    }
+
+    public function NewMethod($id_pembelian)
+    {
+
+        $pembelian = Pembelian::findOrFail($id_pembelian);
+        $data['kontak'] = Kontak::findOrFail($pembelian->kontak_id);
+        $data['pembelian'] = Pembelian::with('gudang')->where('id',$id_pembelian)->first();
+        
+        return $data;
+    }
+
+    public function getDetailPembelian($uid_pemsanan)
+    {
+
+        
+
     }
     
 }

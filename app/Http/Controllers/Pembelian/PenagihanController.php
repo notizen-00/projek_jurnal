@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pembelian;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\Pembelian\Tipe\PenagihanService;
 
 class PenagihanController extends Controller
 {
@@ -12,6 +13,13 @@ class PenagihanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $service;
+    public function __construct(){
+
+        $this->service = new PenagihanService();
+
+    }
     public function index()
     {
         //
@@ -32,7 +40,9 @@ class PenagihanController extends Controller
     public function new($id_pengiriman)
     {
 
-        $data['id_pengiriman'] = $id_pengiriman;
+       $data = $this->service->NewMethod($id_pengiriman);
+
+       dd($data);
         return view('pembelian.penagihan.create',$data);        
 
     }

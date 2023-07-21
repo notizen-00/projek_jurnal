@@ -3,7 +3,6 @@ namespace App\Interfaces\Pembelian;
 
 interface TipePembelianInterface
 {
-    public function check($data);
 
-
+    public function NewMethod($id_pembelian);
 } 
