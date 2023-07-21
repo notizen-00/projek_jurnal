@@ -84,11 +84,11 @@ Route::group(['middleware' => 'auth','scheme'=>'https'], function () {
 	Route::resource('pembelian','App\Http\Controllers\Pembelian\PembelianController');
 	
 
-	Route::get('pembelian/pemesanan/datatable','App\Http\Controllers\Pembelian\PemesananPembelianController@datatable');
-	Route::post('pembelian/pemesanan/show_dp/{id_pembayaran}','App\Http\Controllers\Pembelian\PemesananPembelianController@store_dp')->name('pembelian_pemesanan.show_dp');
+	Route::get('pembelian/pemesanan/datatable','App\Http\Controllers\Pembelian\PemesananController@datatable');
+	Route::post('pembelian/pemesanan/show_dp/{id_pembayaran}','App\Http\Controllers\Pembelian\PemesananController@store_dp')->name('pembelian_pemesanan.show_dp');
 	Route::post('pembelian/pemesanan/dp','App\Http\Controllers\Pembelian\PemesananPembelianController@store_dp')->name('pembelian_pemesanan.store_dp');
-	Route::get('pembelian/pemesanan/dp/{id_pemesanan}','App\Http\Controllers\Pembelian\PemesananPembelianController@create_dp')->name('pembelian_pemesanan.create_dp');
-	Route::resource('pembelian_pemesanan','App\Http\Controllers\Pembelian\PemesananPembelianController');
+	Route::get('pembelian/pemesanan/dp/{id_pemesanan}','App\Http\Controllers\Pembelian\PemesananController@create_dp')->name('pembelian_pemesanan.create_dp');
+	Route::resource('pembelian_pemesanan','App\Http\Controllers\Pembelian\PemesananController');
 
 	Route::get('pembelian/pengiriman/new/{id}','App\Http\Controllers\Pembelian\PengirimanController@new')->name('pembelian_pengiriman.new');
 	Route::get('pembelian/pengiriman/datatable','App\Http\Controllers\Pembelian\PengirimanController@datatable');

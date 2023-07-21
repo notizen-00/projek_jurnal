@@ -24,7 +24,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
 use DB;
-class PemesananPembelianController extends Controller
+class PemesananController extends Controller
 {
     /**
      * Display a listing of the resource.
