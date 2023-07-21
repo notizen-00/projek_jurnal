@@ -94,6 +94,7 @@ Route::group(['middleware' => 'auth','scheme'=>'https'], function () {
 	Route::get('pembelian/pengiriman/datatable','App\Http\Controllers\Pembelian\PengirimanController@datatable');
 	Route::resource('pembelian_pengiriman','App\Http\Controllers\Pembelian\PengirimanController');
 
+	Route::get('pembelian/penagihan/{id_pengiriman}','App\Http\Controllers\Pembelian\PenagihanController@new')->name('pembelian_penagihan.new');
 	Route::resource('pembelian_penagihan','App\Http\Controllers\Pembelian\PenagihanController');
 
 	

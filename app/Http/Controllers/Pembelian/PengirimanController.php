@@ -95,7 +95,7 @@ class PengirimanController extends Controller
         
         $pemesanan = Pembelian::where('no_transaksi',$request->no_transaksi_pemesanan)->first();
         $uid_pembelian = $pemesanan->uid_pembelian;
-        
+
         $detail_produk = array(
             'id_produk' => $request->input('id_produk'),
             'jumlah_pengiriman' => $request->input('qty'),
@@ -220,7 +220,6 @@ class PengirimanController extends Controller
     public function show($id)
     {
 
-        
         $transaksi = Transaksi::findOrFail($id);
         $uid_pengiriman = $transaksi->no_transaksi;
         $pengiriman = Pengiriman::with('detail_produk')->where('uid_pengiriman', $uid_pengiriman)->get();
@@ -228,6 +227,7 @@ class PengirimanController extends Controller
         $data_pemesanan = Pembelian::where('no_transaksi',$no_po)->first();
         $id_pemesanan = $data_pemesanan->id;
         
+        $data['data_pembelian'] = Pembelian::where('no_transaksi',$uid_pengiriman)->first();
         $data['detail_pengiriman'] = $pengiriman;
         $kontak_id = $data_pemesanan->kontak_id;
         $data['kontak'] = Kontak::findOrFail($kontak_id);

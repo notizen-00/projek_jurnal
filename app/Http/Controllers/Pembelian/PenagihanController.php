@@ -24,7 +24,17 @@ class PenagihanController extends Controller
      */
     public function create()
     {
-        //
+        
+        
+        return view('pembelian.penagihan.create');
+    }
+
+    public function new($id_pengiriman)
+    {
+
+        $data['id_pengiriman'] = $id_pengiriman;
+        return view('pembelian.penagihan.create',$data);        
+
     }
 
     /**

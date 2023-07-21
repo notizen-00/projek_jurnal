@@ -46,7 +46,7 @@
                       
 
                         <div class="btn-group dropup" role="group">
-                            <a class="btn btn-outline-primary" href="{{ route('pembelian.baru') }}">
+                            <a class="btn btn-outline-primary" href="{{ route('pembelian_penagihan.new',$data_pembelian->id) }}">
                                 <i class="fas fa-tag"></i> Buat Penagihan
                             </a>
                         </div>
