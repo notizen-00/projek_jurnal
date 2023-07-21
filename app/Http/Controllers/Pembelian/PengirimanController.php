@@ -90,9 +90,12 @@ class PengirimanController extends Controller
     {
 
        
-        $uid_pengiriman = \Pembelian_helper::generate_nomor_transaksi_pengiriman($request->input('tipe_pembelian'));
+        $uid_pengiriman = \Pembelian_helper::generate_nomor_transaksi($request->input('tipe_pembelian'));
         $nama_transaksi = \Pembelian_helper::get_tipe_pembelian_name($request->input('tipe_pembelian'));
-
+        
+        $pemesanan = Pembelian::where('no_transaksi',$request->no_transaksi_pemesanan)->first();
+        $uid_pembelian = $pemesanan->uid_pembelian;
+        
         $detail_produk = array(
             'id_produk' => $request->input('id_produk'),
             'jumlah_pengiriman' => $request->input('qty'),
@@ -102,6 +105,25 @@ class PengirimanController extends Controller
         $tipe_pajak = \Pembelian_helper::get_tipe_pajak_notransaksi($request->input('no_transaksi_pemesanan'));
 
 
+        $data_pembelian = 
+        [
+            'uid_pembelian' => $uid_pembelian,
+            'kontak_id'=>$request->kontak_id,
+            'gudang_id'=>$request->gudang_id,
+            'tgl_transaksi'=>date('Y-m-d'),
+            'tgl_jatuh_tempo'=>$pemesanan->tgl_jatuh_tempo,
+            'syarat_pembayaran'=>$pemesanan->syarat_pembayaran,
+            'nama_transaksi'=>'Pengiriman Pembelian',
+            'no_transaksi'=>$uid_pengiriman,
+            'status_pembelian'=>1,
+            'no_referensi'=>$request->no_referensi,
+            'pesan'=>$request->pesan,
+            'memo'=>$request->memo,
+            'tag'=>$request->tag,
+            'tipe_pembelian'=>3
+        ];
+
+        Pembelian::insert($data_pembelian);
 
         $data_transaksi = [
             'nama_transaksi'=>$nama_transaksi,

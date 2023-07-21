@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App;
 use App\Models\Produk;
 use App\Models\Kontak;
+use App\Models\Pengiriman;
 use App\Models\Pembelian;
 use App\Models\Detail_pembelian;
 use App\Models\Account;
@@ -1059,6 +1060,7 @@ foreach ($noTransaksiArray as $key => $noTransaksi) {
         Transaksi::truncate();
         Memo::truncate();
         Retur::truncate();
+        Pengiriman::truncate();
 
         $data = [
             'message'=>'data pembelian berhasil di reset',

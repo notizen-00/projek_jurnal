@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Pembelian;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -224,7 +225,7 @@ class PemesananController extends Controller
             'no_referensi.unique' => 'no referensi : <b>'.$request->no_referensi.'</b> pada Supplier : <b>'. Kontak::getnamakontak($request->supplier) .'</b> <br> telah di gunakan',
         ]);
 
-
+        $uid_pembelian = Str::uuid();
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -249,6 +250,7 @@ class PemesananController extends Controller
                 
 
             $data_pembelian = array(
+                'uid_pembelian' => $uid_pembelian,
                 'kontak_id'=>$kontak,
                 'gudang_id'=>$gudang,
                 'tgl_transaksi'=>$tgl_transaksi,
