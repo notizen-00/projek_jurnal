@@ -34,7 +34,6 @@ class PenagihanController extends Controller
     {
         
         
-        return view('pembelian.penagihan.create');
     }
 
     public function new($id_pengiriman)
@@ -42,8 +41,7 @@ class PenagihanController extends Controller
 
        $data = $this->service->NewMethod($id_pengiriman);
 
-       dd($data);
-        return view('pembelian.penagihan.create',$data);        
+        return view('pembelian.penagihan.penagihan_new',$data);        
 
     }
 
