@@ -3,6 +3,7 @@ namespace App\Services\Pembelian\Tipe;
 
 use App\Models\Pembelian;
 use App\Models\Kontak;
+use App\Models\PemesananPembelian;
 use App\Interfaces\Pembelian\TipePembelianInterface;
 use App\Services\Pembelian\PembelianService;
 
@@ -28,6 +29,7 @@ class PenagihanService implements TipePembelianInterface
         $pemesanan = Pembelian::where('uid_pembelian',$pengiriman->uid_pembelian)->where('nama_transaksi','Pemesanan Pembelian')->first();
         $id_pemesanan = $pemesanan->id;
         $data['detail_pembelian'] = $this->pembelianService->getDetailPembelian($id_pemesanan);
+        $data['pajak'] = PemesananPembelian::getpajak($id_pemesanan);
         $data['subtotal'] = $this->pembelianService->getSubtotal($id_pemesanan);
         $data['pembelian'] = Pembelian::with('gudang')->where('id',$id_pemesanan)->first();
         
