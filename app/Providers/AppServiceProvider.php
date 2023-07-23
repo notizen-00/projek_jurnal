@@ -12,6 +12,10 @@ use App\Services\Rules\RulesKomisi;
 use App\Services\Rules\RulesSales;
 use App\Services\Rules\RulesInterface;
 
+use App\Services\Pembelian\PembelianService;
+use App\Services\Pembelian\Tipe\PenagihanService;
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -36,6 +40,16 @@ class AppServiceProvider extends ServiceProvider
                 $app->make(RulesKomisi::class),
                 $app->make(RulesSales::class)
             );
+        });
+
+   
+
+        $this->app->bind(PenagihanService::class, function ($app) {
+            // Resolve the dependency from the container
+            return new PenagihanService(
+                $app->make(PembelianService::class)
+            );
+            
         });
     }
 

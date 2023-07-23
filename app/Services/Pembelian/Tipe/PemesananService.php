@@ -3,16 +3,17 @@ namespace App\Services\Pembelian\Tipe;
 
 use App\Interfaces\Pembelian\TipePembelianInterface;
 
+use App\Services\Pembelian\PembelianService;
 class PemesananService implements TipePembelianInterface
 
 {
 
-    protected $tipe;
+    protected $pembelianService;
 
 
-    public function __construct($tipe = 'Pemesanan Pembelian')
+    public function __construct(PembelianService $PembelianService)
     {
-        $this->tipe = $tipe;
+        $this->pembelianService = $PembelianService;
     }
 
     public function getTipe()
@@ -21,21 +22,18 @@ class PemesananService implements TipePembelianInterface
         return $this->tipe;
     }
 
-    public function NewMethod($id_pembelian)
+    public function NewMethod($id_pemesanan)
     {
 
-        $pembelian = Pembelian::findOrFail($id_pembelian);
+        $pembelian = Pembelian::findOrFail($id_pemesanan);
         $data['kontak'] = Kontak::findOrFail($pembelian->kontak_id);
-        $data['pembelian'] = Pembelian::with('gudang')->where('id',$id_pembelian)->first();
-        
+        $data['pembelian'] = Pembelian::with('gudang')->where('id',$id_pemesanan)->first();
+        $data['transaksi']  = Transaksi::with('pembayaran')->where('id',$id_pemesanan)->first();
+        dd($this->pembelianService->getIdPembelian());
+
         return $data;
     }
 
-    public function getDetailPembelian($uid_pemsanan)
-    {
-
-        
-
-    }
+   
     
 }

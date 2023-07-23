@@ -37,17 +37,19 @@
                         <form id="form_pembelian" class="ml-4 mt-2">
                             @csrf
                             <div class="card-header" style="background-color:lightblue; height:100px;">
-
+                                <input type="hidden" name="kontak_id" value="{{ $kontak->id }}">
                                 <div class="row">
                                     <input type="hidden" name="tipe_pembelian" value="1"/>
                                     <div class="form-group col-lg-2 col-md-6 col-sm-12">
                                         <label for="supplier" class="text-dark"><b>Supplier</b></label>
                                         <br>
+                                        <input type="text" value="{{ $kontak->nama_kontak }}" readonly class="form-control form-control-sm" name="nama_kontak"
+                                        style="height:30px; font-size:smaller; padding-top:3px;" />
                                        
                                     </div>
                                     <div class="form-group col-lg-2 col-md-6 col-sm-6">
                                         <label for="supplier" class="text-dark"><b>Email</b></label>
-                                        <input type="email" value="" class="form-control form-control-sm" name="email"
+                                        <input type="email" value="{{ $kontak->email }}" readonly class="form-control form-control-sm" name="email"
                                             style="height:30px; font-size:smaller; padding-top:3px;" />
 
                                     </div>
@@ -71,8 +73,8 @@
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="form-group col-lg-6 col-sm-12 float-left">
                                         <label for="supplier" class="text-dark"><b>Alamat</b></label>
-                                        <textarea placeholder="Isikan Alamat ..." id="supplier" rows="3"
-                                            class="form-control form-control-sm" name="alamat"></textarea>
+                                        <textarea placeholder="Isikan Alamat ..." readonly id="supplier" rows="3"
+                                            class="form-control form-control-sm" name="alamat">{{ $kontak->alamat }}</textarea>
                                     </div>
 
 
@@ -99,7 +101,7 @@
                                             <option value="">-- Syarat Pembayaran --</option>
                                             <option value="1">C.O.D</option>
                                             <option value="2">Set Manual</option>
-                                            <option value="3">Net 30</option>
+                                            <option value="3" selected>Net 30</option>
                                             <option value="4">Net 60</option>
                                         </select>
                                     </div>
@@ -118,19 +120,25 @@
 
                                     <div class="form-group col-lg-6 col-sm-12 float-left">
                                         <label for="supplier" class="text-dark"><b>Tag (Optional)</b></label>
-                                        <input type="text" class="form-control" name="tag"
+                                        <input type="text" class="form-control" name="tag" value="{{ $pembelian->tag}}"
                                             style="height:30px; width:80%; font-size:smaller; padding-top:3px;" />
                                     </div>
 
                                     <div class="form-group col-lg-6 col-sm-12 float-left">
                                         <label for="supplier" class="text-dark"><b>No referensi</b></label>
-                                        <input type="text" class="form-control" name="no_referensi"
+                                        <input type="text" class="form-control" value="{{ $pembelian->no_referensi }}" name="no_referensi"
                                             style="height:30px; width:80%; font-size:smaller; padding-top:3px;" />
                                     </div>
 
                                     <div class="form-group col-lg-6 col-sm-12 float-left">
                                         <label for="supplier" class="text-dark"><b>Gudang</b></label>
-                                           
+                                        <input type="text" value="{{ $pembelian->gudang->nama_gudang }}" readonly class="form-control form-control-sm"
+                                        style="height:30px; font-size:smaller; padding-top:3px;" />
+                                    </div>
+                                    <div class="form-group col-lg-6 col-sm-12 float-left">
+                                        <label for="supplier" class="text-dark"><b>Pengiriman</b></label>
+                                        <input type="text" value="{{ $no_pengiriman }}" readonly class="form-control form-control-sm"
+                                        style="height:30px; font-size:smaller; padding-top:3px;" />
                                     </div>
 
                                 </div>
@@ -153,7 +161,6 @@
                                     <thead style="background-color:aliceblue;" class="text-lowercase">
                                         <tr>
                                             <th style="font-size:smaller;" class="text-capitalize">Produk</th>
-                                            <th style="font-size:smaller;" class="text-capitalize">Stok</th>
                                             <th style="font-size:smaller;" class="text-capitalize">Kuantitas</th>
                                             <th style="font-size:smaller;" class="text-capitalize">Satuan</th>
                                             <th style="font-size:smaller;" class="text-capitalize text-right">Harga
@@ -161,54 +168,27 @@
                                             <th style="font-size:smaller;" class="text-capitalize text-right">Pajak</th>
                                             <th style="font-size:smaller;" class="text-capitalize text-right">Total Harga
                                             </th>
-                                            <th style="font-size:smaller;" class="text-capitalize text-right">Action
-                                            </th>
+                                          
                                         </tr>
                                     </thead>
                                     <tbody class="isi_produk">
-                                        <tr>
-                                            <td style="width:17%;" class="anak">
-                                                <select name="nama_produk[]" data-live-search="true"
-                                                    class="form-control selectpicker" title="-- Pilih Produk --"
-                                                    style="background-color:white;"
-                                                    style="height:30px; font-size:smaller; padding-top:3px;">
-                                                   
-                                                </select>
-                                            </td>
-                                            <td style="width:5%;"><input type="text" class="form-control form-control-sm stok" name="stok" readonly></td>
-                                            <td style="width: 5%;">
-                                                <input type="number" class="form-control form-control-sm qty"
-                                                    style="height:30px; font-size:smaller; padding-top:3px;"
-                                                    name="qty[]" />
-                                            </td>
-                                            <td style="width: 7%;">
-                                                <input type="text" name="satuan[]" readonly class="form-control satuan"
-                                                    style="height:30px; font-size:smaller; padding-top:3px;">
-                                            </td>
-                                            <td class="text-right">
-                                                <input type="text"
-                                                    class="form-control form-control-sm text-right font-weight-bold harga_satuan"
-                                                    style="height:30px; font-size:smaller; padding-top:3px;"
-                                                    name="harga_satuan[]" placeholder="Rp. 0,00" />
-                                                <input type="hidden" name="harga_satuan_int[]"
-                                                    class="harga_satuan_int" />
-                                            </td>
-                                            <td class="text-right" style="width:7%;">
-                                                <input type="text" name="pajak_id[]" class="form-control form-control-sm pajak" readonly>
-                                            </td>
-                                            <td class="text-right">
-                                                <input type="text"
-                                                    class="form-control form-control-sm text-right font-weight-bold subtotal"
-                                                    style="height:30px; font-size:smaller; padding-top:3px;"
-                                                    name="subtotal[]" placeholder="Rp. 0,00" />
-                                                <input type="hidden" name="subtotal_int[]" class="subtotal_int">
-                                            </td>
-                                            <td class="text-right">
-                                                <span style="cursor: pointer;"
-                                                    class="fas fa-trash text-danger hapus_baris"></span>
-                                            </td>
-                                        </tr>
-
+                                        @foreach($detail_pembelian as $i)
+                                            <tr>
+                                                <td><a
+                                                        href="{{ route('product.show',$i->product_id) }}">{{ $i->detail_produk->nama_produk }}</a>
+                                                </td>
+                                              
+                                                <td>{{ $i->qty }}</td>
+                                                <td>{{ \Transaksi_helper::get_unit_name($i->detail_produk->unit_produk_id) }}
+                                                </td>
+                                                <td class="text-right">{{ \Helper::rupiah($i->harga_satuan) }}
+                                                </td>
+                                                <td class="text-right">{{ $i->pajak_id }}</td>
+                                                <td class="text-right"><input type="hidden" class="subtotal_int"
+                                                        value="{{ $i->jumlah }}">{{ \Helper::rupiah($i->harga_satuan * $i->qty) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
 
@@ -240,7 +220,7 @@
 
 
                                         <div class="form-group col-lg-6 col-sm-12 float-left total_subtotal" id="subtotal">
-                                            Rp. 0,00
+                                            {{ \Helper::rupiah($subtotal) }}
                                         </div>
                                         <div class="pr-5 col-lg-6 col-sm-12 float-left">
                                             PPN
